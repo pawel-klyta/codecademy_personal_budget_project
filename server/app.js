@@ -15,4 +15,4 @@ app.get("/", (req, res, next) => {
 });
 
 // mounting the envelope router
-app.use("/api/envelope", envelope_router);
+app.use("/api/envelopes", envelope_router);

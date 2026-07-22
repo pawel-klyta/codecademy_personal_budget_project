@@ -6,7 +6,20 @@ let totalBudget = 0;
 
 // defining the Array in which the envelopes will be stored
 
-const envelopeArr = [];
+const envelopeArr = [
+    {
+        name: "Lebensmittel",
+        description: "Monatlicher Einkauf im Supermarkt und Bäcker",
+        budget: 400,
+        id: 1
+    },
+    {
+        name: "Freizeit",
+        description: "Budget für Kino, Restaurants und Hobbys",
+        budget: 150,
+        id: 2
+    }
+];
 
 // functions that manipulate the array
 
@@ -33,7 +46,7 @@ const getIndexById = (envelopeId) => {
 // returns the envelope by Id. If the id doesnt exist it will return false
 const getById = (envelopeId) => {
     const index = getIndexById(envelopeId);
-    if (index) {
+    if (index !== false) {
         return envelopeArr[index];
     };
     return false;
@@ -47,8 +60,8 @@ const getAll = () => {
 // deletes an envelope by Id, if the operation was succesfull it returns true if not it returns false
 const deleteById = (envelopeId) => {
     const index = getIndexById(envelopeId);
-    if (index) {
-        envelopeArr.splice(envelopeId, 1);
+    if (index !== false) {
+        envelopeArr.splice(index, 1);
         return true;
     } else {
         return false;
@@ -61,7 +74,7 @@ const deleteById = (envelopeId) => {
 const editById = (envelopeId, name, description, budget) => {
     const index = getIndexById(envelopeId);
     let changed = false;
-    if (index) {
+    if (index !== false) {
         if (name) {
             envelopeArr[index].name = name;
             changed = true;
@@ -82,6 +95,7 @@ const editById = (envelopeId, name, description, budget) => {
 };
 
 module.exports = {
+    getAll,
     addNewEnvelope,
     getIndexById,
     getById,
