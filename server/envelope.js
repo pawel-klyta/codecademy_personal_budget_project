@@ -1,8 +1,9 @@
 class envelope {
     static id = 0
 
-    constructor(name, budget) {
+    constructor(name, description, budget) {
         this.name = name;
+        this.description = description;
         this.budget = budget;
 
         // assigning individual id
@@ -19,6 +20,10 @@ class envelope {
         return this._name;
     }
 
+    get description() {
+        return this._description;
+    }
+
     get budget() {
         return this._budget;
     }
@@ -32,12 +37,22 @@ class envelope {
         }
     }
 
+    set description(description) {
+        if (typeof description === "string" && description.length < 200) {
+            this._description = description;
+        } else {
+            throw new Error("The assigned description has to be a string and have a maximum of 200 characters.");
+        }
+    }
+
     set budget(budget) {
         budget = parseInt(budget);
         if (Number.isInteger(budget) && budget > 0) {
             this._budget = budget; 
         } else {
-            throw new Error("The assigned budget has to be an Integer and has to be greater than 0");
+            throw new Error("The assigned budget has to be an integer and greater than 0");
         }
     }
 };
+
+module.exports = { envelope };
