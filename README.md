@@ -1,4 +1,4 @@
-# Simple api for managing personal budget with the envelope pricipal
+# Simple api for managing personal budget with the envelope principle
 
 ## How to start the Server?
 
