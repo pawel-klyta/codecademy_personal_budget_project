@@ -61,14 +61,14 @@ class envelope {
 
     set spent(value) {
         value = parseInt(value);
-        if (Number.isInteger(value) && value > 0) {
+        if (Number.isInteger(value) && value >= 0) {
             if ((value + this.spent) <= this.budget) {
                 this._spent += value;
             } else {
                 throw new Error("You cant spent more then you have available.");
             };
         } else {
-            throw new Error("The assigned value has to be an integer and greater than 0");
+            throw new Error("The assigned value has to be an integer and equal to or greater than 0");
         };
     }
 

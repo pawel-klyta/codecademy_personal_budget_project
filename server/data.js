@@ -6,10 +6,7 @@ let totalBudget = 0;
 
 // defining the Array in which the envelopes will be stored
 
-const envelopeArr = [
-    new envelope("Lebensmittel", "Monatlicher Einkauf im Supermarkt und Bäcker", 400),
-    new envelope("Freizeit", "kein Plan", 150)
-];
+const envelopeArr = [];
 
 // functions that manipulate the array
 

@@ -46,7 +46,7 @@ envelope_router.put("/:id", (req, res, next) => {
     const previous = data.getById(req.id).spent;
     try {
         data.resetById(req.id);
-        data.editById(req.id, req.body.name, req.body.description, req.body.budget, req.body.value);
+        data.editById(req.id, req.body.name, req.body.description, req.body.budget, req.body.spent);
         res.status(200).send(data.getById(req.id));
     } catch(error) {
         data.resetById(req.id);
@@ -67,13 +67,12 @@ envelope_router.post("/", (req, res, next) => {
 
 envelope_router.post("/transfer/:id/:amount/:destinationId", (req, res, next) => {
     const amount = parseInt(req.params.amount);
-    const destinationId = parseInt(req.params.destination);
+    const destinationId = parseInt(req.params.destinationId);
     // checking if Index is ok
-    const destinationIndex = data.getIndexById(destination);
-    if (index === false) {
+    const destinationIndex = data.getIndexById(destinationId);
+    if (destinationIndex === false) {
         return res.status(404).send("This destination ID doesn't exist");
     };
-    destinationId = id;
     // checking if amount is ok
     if (!(typeof amount === "number" && amount > 0)) {
         return res.status(400).send("The amount to transfer has to be a number and higher than 0.");
