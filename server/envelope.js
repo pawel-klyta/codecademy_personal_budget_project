@@ -5,6 +5,7 @@ class envelope {
         this.name = name;
         this.description = description;
         this.budget = budget;
+        this._spent = 0;
 
         // assigning individual id
         this._id = envelope.id;
@@ -26,6 +27,10 @@ class envelope {
 
     get budget() {
         return this._budget;
+    }
+
+    get spent() {
+        return this._spent;
     }
 
     // data validation with setters
@@ -53,6 +58,23 @@ class envelope {
             throw new Error("The assigned budget has to be an integer and greater than 0");
         }
     }
-};
+
+    set spent(value) {
+        value = parseInt(value);
+        if (Number.isInteger(value) && value > 0) {
+            if ((value + this.spent) <= this.budget) {
+                this._spent += value;
+            } else {
+                throw new Error("You cant spent more then you have available.");
+            };
+        } else {
+            throw new Error("The assigned value has to be an integer and greater than 0");
+        };
+    }
+
+    set spentExplicit(value) {
+        this._spent = value;
+    }
+}
 
 module.exports = { envelope };

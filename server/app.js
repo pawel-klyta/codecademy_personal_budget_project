@@ -6,10 +6,6 @@ const envelope_router = require("./envelope_router.js");
 // specifing where to listen
 const PORT = 3000;
 
-app.listen(PORT, () => {
-    console.log(`Server is active and listening on PORT ${PORT}.`);
-});
-
 // parsing the body
 app.use(bodyParser.json());
 
@@ -20,3 +16,8 @@ app.get("/", (req, res, next) => {
 
 // mounting the envelope router
 app.use("/api/envelopes", envelope_router);
+
+// starting the server
+app.listen(PORT, () => {
+    console.log(`Server is active and listening on PORT ${PORT}.`);
+});

@@ -7,18 +7,8 @@ let totalBudget = 0;
 // defining the Array in which the envelopes will be stored
 
 const envelopeArr = [
-    {
-        name: "Lebensmittel",
-        description: "Monatlicher Einkauf im Supermarkt und Bäcker",
-        budget: 400,
-        id: 1
-    },
-    {
-        name: "Freizeit",
-        description: "Budget für Kino, Restaurants und Hobbys",
-        budget: 150,
-        id: 2
-    }
+    new envelope("Lebensmittel", "Monatlicher Einkauf im Supermarkt und Bäcker", 400),
+    new envelope("Freizeit", "kein Plan", 150)
 ];
 
 // functions that manipulate the array
@@ -68,28 +58,56 @@ const deleteById = (envelopeId) => {
     };
 };
 
-//  Takes in (envelopeId, name, description, budget) a property will only be changed if the provided value is truthy.
+//  Takes in (envelopeId, name, description, budget, spent) a property will only be changed if the provided value is truthy.
 //  For example if (1, "", "", 400) only the budget of the envelope with an id of 1 will be changed.
 //  If changes were made it will return the changed envelope, if not it will return false.
-const editById = (envelopeId, name, description, budget) => {
+const editById = (envelopeId, name, description, budget, spent) => {
     const index = getIndexById(envelopeId);
     let changed = false;
     if (index !== false) {
-        if (name) {
+        if (name !== "") {
             envelopeArr[index].name = name;
             changed = true;
         };
-        if (description) {
+        if (description !== "") {
             envelopeArr[index].description = description;
             changed = true;
         };
-        if (budget) {
+        if (budget !== "") {
             envelopeArr[index].budget = budget;
+            changed = true;
+        };
+        if (spent !== "") {
+            envelopeArr[index].spent = spent;
             changed = true;
         };
         if (changed) {
             return envelopeArr[index];
         }
+    };
+    return false;
+};
+
+const resetById = (envelopeId) => {
+    const index = getIndexById(envelopeId);
+    if (index !== false) {
+        envelopeArr[index].spentExplicit = 0;
+        return true;
+    };
+    return false;
+};
+
+const getLast = () => {
+    return getById(envelope.id - 1);
+};
+
+const transfer = (idFrom, amount, idDestination) => {
+    const from = getById(idFrom);
+    const leftFrom = from.budget - from.spent; // what budget is left
+    if (leftFrom >= amount) {
+        from.budget -= amount;
+        getById(idDestination).budget += amount;
+        return true;
     };
     return false;
 };
@@ -100,5 +118,8 @@ module.exports = {
     getIndexById,
     getById,
     deleteById,
-    editById
+    editById,
+    resetById,
+    getLast,
+    transfer
 };
