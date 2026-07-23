@@ -8,7 +8,7 @@ Make sure that node and npm is installed and set-up on your local machine. Type 
 
 + node ./server/app.js
 
-## Envelope Scheme
+## Envelope Schema
 
 constructor(name, description, budget)
 
